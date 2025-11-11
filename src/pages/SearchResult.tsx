@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { RecentPosts } from "@/components/RecentPosts";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
@@ -63,6 +64,10 @@ export default function SearchResult() {
             <ExternalLink className="mr-2 h-5 w-5" />
             Visit Now
           </Button>
+
+          <div className="mt-12">
+            <RecentPosts />
+          </div>
         </div>
       </main>
 

@@ -59,6 +59,7 @@ export const trackEvent = async (
     const source = getSource();
     const geoInfo = await getGeoInfo();
     const userAgent = navigator.userAgent;
+    const siteName = window.location.hostname;
 
     await supabase.from('analytics').insert({
       event_type: eventType,
@@ -69,7 +70,8 @@ export const trackEvent = async (
       device,
       country: geoInfo.country,
       source,
-      user_agent: userAgent
+      user_agent: userAgent,
+      site_name: siteName
     });
   } catch (error) {
     console.error('Error tracking event:', error);
