@@ -106,6 +106,10 @@ export default function BlogPost() {
               />
 
               <RelatedSearches blogId={post.id} />
+              
+              <div className="mt-8">
+                <RecentPosts />
+              </div>
             </article>
           </div>
         </div>
