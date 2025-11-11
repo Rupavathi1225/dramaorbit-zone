@@ -2,13 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 
 export default function SearchResult() {
   const { searchId } = useParams<{ searchId: string }>();
+  const navigate = useNavigate();
 
   const { data: search } = useQuery({
     queryKey: ["search-result", searchId],
@@ -25,10 +26,8 @@ export default function SearchResult() {
   });
 
   const handleVisitNow = async () => {
-    if (search) {
-      await trackEvent("visit_now_click", search.blog_id, search.id);
-      window.open(search.target_url, "_blank");
-    }
+    // Redirect to pre-landing page instead of direct URL
+    navigate(`/prelanding/${searchId}`);
   };
 
   if (!search) {

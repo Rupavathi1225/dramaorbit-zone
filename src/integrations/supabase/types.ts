@@ -154,6 +154,84 @@ export type Database = {
         }
         Relationships: []
       }
+      prelanding_pages: {
+        Row: {
+          background_color: string | null
+          background_image_url: string | null
+          button_color: string | null
+          button_text: string | null
+          button_text_color: string | null
+          created_at: string
+          description: string | null
+          description_color: string | null
+          description_font_size: number | null
+          email_box_border_color: string | null
+          email_box_color: string | null
+          headline: string | null
+          headline_color: string | null
+          headline_font_size: number | null
+          id: string
+          image_ratio: string | null
+          logo_position: string | null
+          logo_size: number | null
+          logo_url: string | null
+          main_image_url: string | null
+          related_search_id: string
+          text_alignment: string | null
+          updated_at: string
+        }
+        Insert: {
+          background_color?: string | null
+          background_image_url?: string | null
+          button_color?: string | null
+          button_text?: string | null
+          button_text_color?: string | null
+          created_at?: string
+          description?: string | null
+          description_color?: string | null
+          description_font_size?: number | null
+          email_box_border_color?: string | null
+          email_box_color?: string | null
+          headline?: string | null
+          headline_color?: string | null
+          headline_font_size?: number | null
+          id?: string
+          image_ratio?: string | null
+          logo_position?: string | null
+          logo_size?: number | null
+          logo_url?: string | null
+          main_image_url?: string | null
+          related_search_id: string
+          text_alignment?: string | null
+          updated_at?: string
+        }
+        Update: {
+          background_color?: string | null
+          background_image_url?: string | null
+          button_color?: string | null
+          button_text?: string | null
+          button_text_color?: string | null
+          created_at?: string
+          description?: string | null
+          description_color?: string | null
+          description_font_size?: number | null
+          email_box_border_color?: string | null
+          email_box_color?: string | null
+          headline?: string | null
+          headline_color?: string | null
+          headline_font_size?: number | null
+          id?: string
+          image_ratio?: string | null
+          logo_position?: string | null
+          logo_size?: number | null
+          logo_url?: string | null
+          main_image_url?: string | null
+          related_search_id?: string
+          text_alignment?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       related_searches: {
         Row: {
           blog_id: string | null

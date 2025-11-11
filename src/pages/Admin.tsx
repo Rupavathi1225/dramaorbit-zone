@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { Trash2, Eye, ChevronDown, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
+import { PreLandingEditor } from "@/components/PreLandingEditor";
 
 // Session Row Component with expandable details
 const SessionRow = ({ session }: { session: any }) => {
@@ -379,6 +380,7 @@ export default function Admin() {
           <TabsList>
             <TabsTrigger value="blogs">Blogs</TabsTrigger>
             <TabsTrigger value="related">Related Searches</TabsTrigger>
+            <TabsTrigger value="prelanding">Pre-Landing Pages</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
@@ -520,6 +522,10 @@ export default function Admin() {
                 </Button>
               </div>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="prelanding" className="space-y-6">
+            <PreLandingEditor />
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-6">
