@@ -309,6 +309,24 @@ export default function Admin() {
   // Count unique IPs for unique visitors
   const uniqueVisitors = sessions ? new Set(sessions.map(s => s.ip_address)).size : 0;
 
+  // Calculate unique pages (unique blog_ids viewed)
+  const uniquePages = sessions ? new Set(
+    sessions.flatMap(s => 
+      s.events
+        .filter((e: any) => e.event_type === 'blog_view' && e.blog_id)
+        .map((e: any) => e.blog_id)
+    )
+  ).size : 0;
+
+  // Calculate unique clicks (unique related_search_ids clicked)
+  const uniqueClicks = sessions ? new Set(
+    sessions.flatMap(s => 
+      s.events
+        .filter((e: any) => (e.event_type === 'related_search_click' || e.event_type === 'visit_now_click') && e.related_search_id)
+        .map((e: any) => e.related_search_id)
+    )
+  ).size : 0;
+
   // Create blog mutation
   const createBlog = useMutation({
     mutationFn: async (data: typeof blogForm) => {
@@ -530,7 +548,7 @@ export default function Admin() {
 
           <TabsContent value="analytics" className="space-y-6">
             {/* Summary Cards */}
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-5 gap-4">
               <Card className="p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
                 <h3 className="font-semibold mb-2 text-gray-700">Total Sessions</h3>
                 <p className="text-4xl font-bold text-orange-600">{totalSessions}</p>
@@ -541,10 +559,20 @@ export default function Admin() {
                 <p className="text-4xl font-bold text-blue-600">{totalPageViews}</p>
                 <p className="text-sm text-gray-600 mt-1">Total pages viewed</p>
               </Card>
+              <Card className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+                <h3 className="font-semibold mb-2 text-gray-700">Unique Pages</h3>
+                <p className="text-4xl font-bold text-purple-600">{uniquePages}</p>
+                <p className="text-sm text-gray-600 mt-1">Different pages viewed</p>
+              </Card>
               <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                 <h3 className="font-semibold mb-2 text-gray-700">Total Clicks</h3>
                 <p className="text-4xl font-bold text-green-600">{totalClicks}</p>
                 <p className="text-sm text-gray-600 mt-1">Buttons and links clicked</p>
+              </Card>
+              <Card className="p-6 bg-gradient-to-br from-pink-50 to-pink-100 border-pink-200">
+                <h3 className="font-semibold mb-2 text-gray-700">Unique Clicks</h3>
+                <p className="text-4xl font-bold text-pink-600">{uniqueClicks}</p>
+                <p className="text-sm text-gray-600 mt-1">Different links clicked</p>
               </Card>
             </div>
 
