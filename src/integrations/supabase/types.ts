@@ -25,6 +25,7 @@ export type Database = {
           ip_address: string | null
           related_search_id: string | null
           session_id: string
+          site_name: string | null
           source: string | null
           user_agent: string | null
         }
@@ -38,6 +39,7 @@ export type Database = {
           ip_address?: string | null
           related_search_id?: string | null
           session_id: string
+          site_name?: string | null
           source?: string | null
           user_agent?: string | null
         }
@@ -51,6 +53,7 @@ export type Database = {
           ip_address?: string | null
           related_search_id?: string | null
           session_id?: string
+          site_name?: string | null
           source?: string | null
           user_agent?: string | null
         }
