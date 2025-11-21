@@ -46,11 +46,35 @@ export const PreLandingPage = () => {
       return;
     }
 
+    // Save email to database
+    const { error: emailError } = await supabase
+      .from("prelanding_emails")
+      .insert({
+        email,
+        related_search_id: searchId,
+      });
+
+    if (emailError) {
+      console.error("Error saving email:", emailError);
+      toast({
+        title: "Error",
+        description: "Failed to save email. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     await trackEvent("prelanding_email_submit", undefined, searchId);
     
     // Track visit now click
     await trackEvent("visit_now_click", undefined, searchId);
     
+    // Show success message
+    toast({
+      title: "Success!",
+      description: "Your email has been submitted.",
+    });
+
     // Redirect to target URL
     if (config?.search?.target_url) {
       window.open(config.search.target_url, "_blank");
