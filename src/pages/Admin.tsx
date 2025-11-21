@@ -284,6 +284,25 @@ export default function Admin() {
     },
   });
 
+  // Fetch prelanding emails
+  const { data: prelandingEmails } = useQuery({
+    queryKey: ["prelanding-emails"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("prelanding_emails")
+        .select(`
+          *,
+          related_searches (
+            search_text
+          )
+        `)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
   // Get unique countries and sources for filters
   const { data: filterOptions } = useQuery({
     queryKey: ["filter-options"],
@@ -400,6 +419,7 @@ export default function Admin() {
             <TabsTrigger value="related">Related Searches</TabsTrigger>
             <TabsTrigger value="prelanding">Pre-Landing Pages</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="emails">Emails</TabsTrigger>
           </TabsList>
 
           <TabsContent value="blogs" className="space-y-6">
@@ -644,6 +664,44 @@ export default function Admin() {
                     No analytics data available
                   </div>
                 )}
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="emails" className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-xl font-bold mb-4">Prelanding Email Submissions</h2>
+              
+              <div className="rounded-lg border overflow-hidden">
+                <table className="w-full">
+                  <thead className="bg-muted">
+                    <tr>
+                      <th className="text-left p-3 font-semibold">Email</th>
+                      <th className="text-left p-3 font-semibold">Related Search</th>
+                      <th className="text-left p-3 font-semibold">Submitted At</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {prelandingEmails?.map((item) => (
+                      <tr key={item.id} className="border-t hover:bg-muted/50">
+                        <td className="p-3 font-medium">{item.email}</td>
+                        <td className="p-3">
+                          {(item.related_searches as any)?.search_text || 'N/A'}
+                        </td>
+                        <td className="p-3">
+                          {format(new Date(item.created_at), 'MMM dd, yyyy HH:mm')}
+                        </td>
+                      </tr>
+                    ))}
+                    {(!prelandingEmails || prelandingEmails.length === 0) && (
+                      <tr>
+                        <td colSpan={3} className="text-center text-muted-foreground py-8">
+                          No email submissions yet
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </Card>
           </TabsContent>

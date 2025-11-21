@@ -157,6 +157,35 @@ export type Database = {
         }
         Relationships: []
       }
+      prelanding_emails: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          related_search_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          related_search_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          related_search_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prelanding_emails_related_search_id_fkey"
+            columns: ["related_search_id"]
+            isOneToOne: false
+            referencedRelation: "related_searches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       prelanding_pages: {
         Row: {
           background_color: string | null
